@@ -67,10 +67,21 @@ const server = net.createServer(function (client) {
             }
         });
         client.on('data',function (data) {
-            
+            if(Clients[client.id] === 'FILES' && data !== 'FILES'){
+                buffFile[client.id].push(Buffer.from(data,'hex'));
+                buffName[client.id].push(Buffer.from(data));
+                if(data.toString().endsWith('END')) {
+                    createFile(client.id);
+                    client.write('NEXT');
+                }
+             }
         });
         client.on('end', function () {
-           
+            if (client.id === undefined) console.log(' --- ' + 'no connect for Client');
+            else {
+                //fs.appendFile(client.id+`.txt`,'Client disconnected :)',(err)=>{if(err) console.log('Err in create LOG');});
+                console.log(' --- ' + 'Client-' + client.id);
+            }
         });
     })
 ;
