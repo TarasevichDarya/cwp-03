@@ -36,7 +36,18 @@ client.on('data', function (data) {
 });
 
 function sendFiles() {
-    
+    if(files.length !== 0){
+        let file = files.pop();
+        fs.readFile(file,function (err,data) {
+            if(!err) {
+                console.log(data.length);
+                let buf = data.toString('hex');
+                client.write(path.basename(file)+'####');
+                client.write(buf);
+                client.write('####'+'END');
+            }
+        });
+    }
 }
 
 function readFiles() {
