@@ -40,5 +40,17 @@ function sendFiles() {
 }
 
 function readFiles() {
-    
+    for(let k = 0; k < pathFor.length; k++)
+    {
+        fs.readdir(pathFor[k], function (err, items) {
+            if (!err) {
+                for (let i = 0; i < items.length; i++) {
+                    let filePath = path.join(pathFor[k], items[i]);
+                    fs.stat(filePath, function (err, stat) {
+                        if (!err && stat.isFile()) files.push(filePath);
+                    });
+                }
+            }
+        });
+    }
 }
