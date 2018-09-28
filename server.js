@@ -55,3 +55,16 @@ function getJSON() {
         }
     })
 }
+function createFile(id) {
+    let fileData = Buffer.concat(buffFile[id]);
+    let fileName = Buffer.concat(buffName[id]).toString().split('####')[0];
+    if(fileData.length === 0) fileData = Buffer.concat(buffName[id]).toString().split('####')[1];
+    console.log(`name ${fileName} -- ${fileData.length} `);
+    fs.writeFile(process.env.pathSave + '\\' + id + '\\' + fileName, fileData , function (err) {
+            if (err)
+                console.error(err);
+        }
+    );
+    buffFile[id]=[];
+    buffName[id] = [];
+}
