@@ -1,0 +1,24 @@
+[
+  {
+    "question":"Do you want to live abroad?",
+    "correct":"Yes",
+    "incorrect":"No"
+  },
+
+  {
+    "question":"Do you like to swim?",
+    "correct":"Yes",
+    "incorrect":"No"
+  },
+
+  {
+    "question":"2*3*5",
+    "correct":30,
+    "incorrect":10
+  },
+  {
+    "question":"Have you ever seen the film The Theory of Big Bang?",
+    "correct":"No",
+    "incorrect":"Yes"
+  }
+]
