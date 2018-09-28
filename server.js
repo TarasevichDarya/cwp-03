@@ -43,7 +43,28 @@ const server = net.createServer(function (client) {
         });
         client.on('data', function (data) {
 
-            
+            if (data !== 'QA' && data !== 'FILES') {
+                for (let i = 0; i < questions.length; i++) {
+                    if (questions[i] === data) {
+                        if (Date.now() % 2 === 0) {
+                            client.write(correct[i].toString());
+                            fs.appendFile(client.id + `.txt`,
+                                'Questions: ' + questions[i].toString() + `\r\n` + 'Answer: ' + correct[i].toString() + `\r\n`,
+                                (err) => {
+                                    if (err) console.log('Err in create LOG');
+                                });
+                        }
+                        else {
+                            client.write(incorrect[i].toString());
+                            fs.appendFile(client.id + `.txt`,
+                                'Questions: ' + questions[i].toString() + `\r\n` + 'Answer: ' + incorrect[i].toString() + `\r\n`,
+                                (err) => {
+                                    if (err) console.log('Err in create LOG');
+                                });
+                        }
+                    }
+                }
+            }
         });
         client.on('data',function (data) {
             
