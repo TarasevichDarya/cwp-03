@@ -22,7 +22,24 @@ const server = net.createServer(function (client) {
         });
         client.on('data', function (data) {
 
-            
+            if (data === 'QA') {
+                isFileClient = false;
+                client.id = Date.now() + seed++;
+                console.log(' +++ ' + 'Client-' + client.id);
+                client.write('ASC');
+                fs.writeFile(client.id + `.txt`, `Client ${client.id} is connect\r\n`, function (err) {
+                    if (err) console.log('Err in create LOG');
+                });
+            }
+            if (data === 'FILES') {
+                client.id = Date.now() + seed++;
+                fs.mkdir(process.env.pathSave+'\\'+client.id,()=>{});
+                Clients[client.id] = data;
+                buffFile[client.id] = [];
+                buffName[client.id] = [];
+                console.log(' +++ ' + 'Client-' + client.id);
+                client.write('ASC');
+            }
         });
         client.on('data', function (data) {
 
